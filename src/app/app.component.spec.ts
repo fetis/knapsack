@@ -74,8 +74,13 @@ describe('AppComponent', () => {
   });
 
   describe('Result output', () => {
+    let service: KnapsackService;
+
+    beforeEach(() => {
+      service = TestBed.inject(KnapsackService);
+    })
+
     it('should call service on init', () => {
-      const service = TestBed.inject(KnapsackService);
       spyOn(service, 'optimize').and.callThrough();
 
       fixture.detectChanges();
@@ -86,7 +91,6 @@ describe('AppComponent', () => {
     it('should call service on form change', () => {
       fixture.detectChanges();
 
-      const service = TestBed.inject(KnapsackService);
       spyOn(service, 'optimize').and.callThrough();
 
       component.form.patchValue({
@@ -94,6 +98,18 @@ describe('AppComponent', () => {
       });
 
       expect(service.optimize).toHaveBeenCalled();
+    });
+
+    it('should NOT call service if form invalid', () => {
+      fixture.detectChanges();
+
+      spyOn(service, 'optimize').and.callThrough();
+
+      component.form.patchValue({
+        size: -5
+      });
+
+      expect(service.optimize).not.toHaveBeenCalled();
     });
 
     it('should render result', () => {
