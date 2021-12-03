@@ -1,0 +1,17 @@
+.layout {
+  display: grid;
+  grid-template-columns: 500px 1fr;
+  grid-gap: 1em;
+}
+
+.layout__col1 {
+  grid-column: 1;
+}
+
+layout__col2 {
+  grid-column: 2;
+}
+
+.item-form mat-form-field {
+  margin-right: 1em;
+}

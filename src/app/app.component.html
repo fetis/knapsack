@@ -5,12 +5,53 @@
 </header>
 
 <article>
-    <mat-form-field>
-        <mat-label i18n>Knapsack size</mat-label>
-        <input matInput type="number">
-    </mat-form-field>
+    <div class="layout">
+        <section [formGroup]="form" class="layout__col1">
+            <h2 i18n>Configuration</h2>
 
-    <p>
-        <button mat-raised-button color="primary" i18n>calculate</button>
-    </p>
+            <mat-form-field>
+                <mat-label i18n>Knapsack size</mat-label>
+                <input matInput formControlName="size" type="number" [min]="0" [max]="100" autocomplete="off">
+            </mat-form-field>
+
+            <div>
+                <div *ngFor="let item of items; let i = index" [formGroup]="item" class="item-form">
+                    <mat-form-field>
+                        <mat-label i18n>size</mat-label>
+                        <input matInput formControlName="size" type="number" [min]="1" autocomplete="off">
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <mat-label i18n>value</mat-label>
+                        <input matInput formControlName="value" type="number" [min]="0" autocomplete="off">
+                    </mat-form-field>
+
+                    <button mat-icon-button (click)="removeItem(i)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+
+                <button mat-raised-button (click)="addItem()" i18n>add item</button>
+            </div>
+        </section>
+
+        <section class="layout__col2">
+            <h2 i18n>Optimized solution</h2>
+
+            <ng-container *ngIf="solution; else noSolution">
+                <p i18n>Total value {{ solution.total }}</p>
+                <div *ngIf="solution.items.length">
+                    <ng-container i18n>Selected items:</ng-container>
+                    <ul>
+                        <li *ngFor="let item of solution.items" i18n>size {{ item.size }}, value {{ item.value }}</li>
+                    </ul>
+                </div>
+            </ng-container>
+
+            <ng-template #noSolution>
+                <ng-container i18n>not solution yet defined</ng-container>
+            </ng-template>
+        </section>
+
+    </div>
 </article>
