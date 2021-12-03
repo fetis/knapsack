@@ -38,6 +38,7 @@
           "configurations": {
             "production": {
               "outputPath": "docs",
+              "baseHref": "knapsack",
               "budgets": [
                 {
                   "type": "initial",
