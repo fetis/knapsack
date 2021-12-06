@@ -22,10 +22,17 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      
+
       - name: Install
         run: npm ci
 
-      # Runs a single command using the runners shell
       - name: Run build
         run: npm run build
+
+      - name: Push changes
+        run: |
+          git config user.name DelpoyBot
+          git config user.email DelpoyBot@fetis
+          git commit -am "Auto deployment"
+          git push
+
