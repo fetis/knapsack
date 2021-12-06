@@ -33,6 +33,7 @@ jobs:
         run: |
           git config user.name DelpoyBot
           git config user.email DelpoyBot@fetis
-          git commit -am "Auto deployment"
+          git add .
+          git commit -m "Auto deployment"
           git push
 
